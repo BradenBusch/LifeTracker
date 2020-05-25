@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_constraintWidth_default="wrap"
     tools:context=".AddTrack">
 
 
@@ -24,7 +25,7 @@
         android:id="@+id/addtrack_textview_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="11dp"
         android:fontFamily="sans-serif-black"
@@ -90,11 +91,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
+            android:buttonTint="@color/blueTeal"
+            android:checked="true"
             android:fontFamily="sans-serif-black"
-            android:onClick="checkAddTrackRadioBtn"
+            android:onClick="radioBtnShowEditText"
             android:text="Yes"
             android:textColor="@color/blueTeal"
-            android:buttonTint="@color/blueTeal"
             android:textSize="20sp" />
 
         <RadioButton
@@ -102,11 +104,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
+            android:buttonTint="@color/blueTeal"
             android:fontFamily="sans-serif-black"
-            android:onClick="checkAddTrackRadioBtn"
+            android:onClick="radioBtnShowEditText"
             android:text="No"
             android:textColor="@color/blueTeal"
-            android:buttonTint="@color/blueTeal"
             android:textSize="20sp" />
     </RadioGroup>
 
@@ -120,5 +122,97 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addtrack_radiogroup_yesNo" />
+
+    <EditText
+        android:id="@+id/addtrack_edittext_addValText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_teal_edittext"
+        android:fontFamily="sans-serif-black"
+        android:hint="Enter an attribute you would like to associate with the track-able"
+        android:padding="5dp"
+        android:textColor="@color/blueTeal"
+        app:layout_constraintEnd_toStartOf="@+id/addtrack_btn_addVal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <Button
+        android:id="@+id/addtrack_btn_addVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/solid_green_button"
+        android:text="Add"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addtrack_edittext_addValText"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <View
+        android:id="@+id/addtrack_view_specBar"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/blueTeal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addtrack_edittext_addValText" />
+
+    <TextView
+        android:id="@+id/addtrack_textview_addedAttributesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Added Attributes:"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addtrack_view_specBar" />
+
+    <ListView
+        android:id="@+id/addtrack_listview_addedVals"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/addtrack_btn_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addtrack_textview_addedAttributesLabel" />
+
+    <Button
+        android:id="@+id/addtrack_btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/green_button_main"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/blueTeal"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/addtrack_btn_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/solid_green_button"
+        android:text="Confirm"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

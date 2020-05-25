@@ -1,8 +1,10 @@
+package com.example.lifetrackerplus;
+
 import java.util.ArrayList;
 
 /*
-    This class is the constructor for a Track, and sets the attributes specified by the user in the
-    'Add Track-able' form.
+    This class is the constructor for a com.example.lifetrackerplus.Track, and sets the attributes specified by the user in the
+    'Add com.example.lifetrackerplus.Track-able' form.
  */
 public class Track {
 
