@@ -3,7 +3,9 @@ package com.example.lifetrackerplus;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -12,7 +14,17 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /*
@@ -25,12 +37,8 @@ TODO
      -> Check if the filename exists before creating
  - Write the users information for each trackable to a file in internal memory (one file for each trackable)
  - I'm not sure how entering the trackable information daily will go yet.
- - Possibly make the first add track button hidden, then when the add button with it is clicked,
- - another pops up.
- - Also could make it a list view, adding a new value to it each time (then adding the values in the list view to the arraylist).
-
- - I think i can use a hashmap instead of a class for storing the values (String, ArrayList<String>)
  */
+
 public class AddTrack extends AppCompatActivity {
 
     RadioGroup radioGroup;
@@ -59,15 +67,20 @@ public class AddTrack extends AppCompatActivity {
         cancelBtn = findViewById(R.id.addtrack_btn_cancel);
         confirmBtn = findViewById(R.id.addtrack_btn_confirm);
 
-        // Setters
+        // Set the ListView adapter
         attributeList = new ArrayList<>();
         adapter = new AddTrackListAdapter(attributeList, this);
         listView.setAdapter(adapter);
 
+        // Get the persistent HashMap
+        HashMap<String, ArrayList<String>> tracks = readTrackableFile();
+
         // On Click Methods
         addAttributeBtnClick();
-        confirmAndCancelClick();
+        confirmAndCancelClick(tracks);
 
+        // Make the keyboard not push the cancel and confirm button up
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
     }
 
     /*
@@ -91,7 +104,7 @@ public class AddTrack extends AppCompatActivity {
         }
     }
 
-    // Handle the 'add' button being clicked
+    // Handle the 'add' button being clicked. This will add the users value to their attribute list.
     public void addAttributeBtnClick() {
         addAttributeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,19 +127,97 @@ public class AddTrack extends AppCompatActivity {
     }
 
     // Handle the cancel and confirm buttons being clicked
-    public void confirmAndCancelClick() {
+    public void confirmAndCancelClick(final HashMap<String, ArrayList<String>> tracks) {
+        // Clear the information and go back a page
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Cancel btn", Toast.LENGTH_SHORT).show();
+                nameEditText.getText().clear();
+                listView.setAdapter(null);
+                // TODO go back to previous page
             }
         });
-
+        // Clicking the confirm button will write the information to internal storage and clear the fields
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Verify all the fields, add the value to the database
+                // Check if the user entered an empty string for name
+                String nameVal = nameEditText.getText().toString();
+                if (nameVal.equals("")) {
+                    Toast.makeText(getApplicationContext(), "You must enter a name for your trackable.", Toast.LENGTH_SHORT).show();
+                    nameEditText.getText().clear();
+                }
+                // Add the trackables value to the hashmap.
+                // TODO check if the name is already in the hashmap
+                else if (tracks.containsKey(nameVal)) {
+                    Toast.makeText(getApplicationContext(), "You already are tracking that! Try another name.", Toast.LENGTH_SHORT).show();
+                    nameEditText.getText().clear();
+                }
+                else {
+                    // Get all the values from the ListView
+                    ArrayList<String> trackableList = new ArrayList<>();
+                    for (int i = 0; i < adapter.getCount(); i++) {
+                        trackableList.add(adapter.getItem(i));
+                    }
+                    tracks.put(nameVal, trackableList);
+                    writeTrackableFile(tracks);
+                }
             }
         });
+    }
+
+    // Write the file
+    public void writeTrackableFile(HashMap<String, ArrayList<String>> tracks) {
+        File file = new File(getApplicationContext().getFilesDir(), "trackablesdir");
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        try {
+            File trackFile = new File(file, "trackables.txt");
+            FileOutputStream fos = new FileOutputStream(trackFile, false);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(tracks);
+            oos.close();
+            Log.i("beep", "Information added");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Read the file and return the HashMap stored in it.
+    public HashMap<String, ArrayList<String>> readTrackableFile() {
+        String path = getApplicationContext().getFilesDir() + "/trackablesdir/" + "trackables.txt";
+        File file = new File(path);
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            HashMap<String, ArrayList<String>> map = (HashMap) ois.readObject();
+            ois.close();
+            printHashMap(map);
+            return map;
+        }
+        catch (FileNotFoundException x) {
+            x.printStackTrace();
+            HashMap<String, ArrayList<String>> tracks = new HashMap<>();
+            return tracks;
+        }
+        catch (IOException f) {
+            f.printStackTrace();
+            HashMap<String, ArrayList<String>> tracks = new HashMap<>();
+            return tracks;
+        }
+        catch (ClassNotFoundException c){
+            c.printStackTrace();
+            HashMap<String, ArrayList<String>> tracks = new HashMap<>();
+            return tracks;
+        }
+    }
+
+    // Helper method to output the contents of the HashMap.
+    public void printHashMap(HashMap<String, ArrayList<String>> map) {
+        for (HashMap.Entry<String, ArrayList<String>> entry : map.entrySet()) {
+            Log.i("map", entry.getKey() + ": " + entry.getValue());
+        }
     }
 }
