@@ -11,6 +11,8 @@
         android:id="@+id/dashboard_tablayout_tabs"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        app:tabTextAppearance="@style/TabText"
+        app:tabTextColor="@color/blueTeal"
         app:tabIndicatorColor="@color/blueTeal">
 
         <com.google.android.material.tabs.TabItem

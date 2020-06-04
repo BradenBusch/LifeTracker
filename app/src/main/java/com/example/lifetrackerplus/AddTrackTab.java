@@ -68,7 +68,6 @@ public class AddTrackTab extends Fragment {
         addAttributeBarSep = v.findViewById(R.id.addtrack_view_specBar);
         addedAttributesLabel = v.findViewById(R.id.addtrack_textview_addedAttributesLabel);
         listView = v.findViewById(R.id.addtrack_listview_addedVals);
-        cancelBtn = v.findViewById(R.id.addtrack_btn_cancel);
         confirmBtn = v.findViewById(R.id.addtrack_btn_confirm);
 
         // Set the ListView adapter
@@ -141,13 +140,6 @@ public class AddTrackTab extends Fragment {
 
     // Handle the cancel and confirm buttons being clicked
     public void confirmAndCancelClick(final HashMap<String, ArrayList<String>> tracks) {
-        // Clear the information and go back a page
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //finish(); // go back to the dashboard TODO make just confirm button (since using a tablayout)
-            }
-        });
         // Clicking the confirm button will write the information to internal storage and clear the fields
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,6 +165,7 @@ public class AddTrackTab extends Fragment {
                     tracks.put(nameVal, trackableList); // add the <name, trackableList> to HashMap
                     writeTrackableFile(tracks); // update the HashMap in the file
                     createTrackableDirectory(nameVal); // create a directory of name nameVal to store check-ins
+                    // TODO make sure correct HashMap is being added to (reload page or whatever to trigger it)
                 }
             }
         });

@@ -11,4 +11,7 @@
         <item name="android:background">#2f2f31</item>
         <item name="android:textColor">#00ffff</item>
     </style>
+    <style name="TabText" parent="android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">sans-serif-black</item>
+    </style>
 </resources>

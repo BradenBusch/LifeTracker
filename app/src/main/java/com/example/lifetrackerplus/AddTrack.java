@@ -70,7 +70,6 @@ public class AddTrack extends AppCompatActivity {
         addAttributeBarSep = findViewById(R.id.addtrack_view_specBar);
         addedAttributesLabel = findViewById(R.id.addtrack_textview_addedAttributesLabel);
         listView = findViewById(R.id.addtrack_listview_addedVals);
-        cancelBtn = findViewById(R.id.addtrack_btn_cancel);
         confirmBtn = findViewById(R.id.addtrack_btn_confirm);
 
         // Set the ListView adapter
