@@ -2,6 +2,7 @@ package com.example.lifetrackerplus;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,10 @@ TODO
      -> Check if the filename exists before creating
  - Write the users information for each trackable to a file in internal memory (one file for each trackable)
  - I'm not sure how entering the trackable information daily will go yet.
+
+TODO
+ - Make a directory for each trackable, store the information for their answers in there. (This is bad for aggregating the data)
+ - Could store the counter for this in shared preferences
  */
 
 public class AddTrack extends AppCompatActivity {
@@ -50,6 +55,7 @@ public class AddTrack extends AppCompatActivity {
     ListView listView;
     ArrayList<String> attributeList;
     AddTrackListAdapter adapter;
+    public static final String SHARED_PREFS = "sharedPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,9 +138,7 @@ public class AddTrack extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nameEditText.getText().clear();
-                listView.setAdapter(null);
-                // TODO go back to previous page
+                finish(); // go back to the dashboard
             }
         });
         // Clicking the confirm button will write the information to internal storage and clear the fields
@@ -147,26 +151,48 @@ public class AddTrack extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "You must enter a name for your trackable.", Toast.LENGTH_SHORT).show();
                     nameEditText.getText().clear();
                 }
-                // Add the trackables value to the hashmap.
-                // TODO check if the name is already in the hashmap
+                // Check if this trackable is already in the hashmap
                 else if (tracks.containsKey(nameVal)) {
                     Toast.makeText(getApplicationContext(), "You already are tracking that! Try another name.", Toast.LENGTH_SHORT).show();
                     nameEditText.getText().clear();
                 }
+                // Add the trackables value to the hashmap, create a directory for the check-ins
                 else {
                     // Get all the values from the ListView
                     ArrayList<String> trackableList = new ArrayList<>();
                     for (int i = 0; i < adapter.getCount(); i++) {
                         trackableList.add(adapter.getItem(i));
                     }
-                    tracks.put(nameVal, trackableList);
-                    writeTrackableFile(tracks);
+                    tracks.put(nameVal, trackableList); // add the <name, trackableList> to HashMap
+                    writeTrackableFile(tracks); // update the HashMap in the file
+                    createTrackableDirectory(nameVal); // create a directory of name nameVal to store check-ins
                 }
             }
         });
     }
 
-    // Write the file
+    // Create the directory for the Users entries to be stored. This method will also create the
+    // shared preferences for a counter variable.
+    public void createTrackableDirectory(String directoryName) {
+        File file = new File(getApplicationContext().getFilesDir(), directoryName);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(directoryName, 1);
+        editor.commit();
+    }
+
+    // TODO move this to where it must be moved
+    public void incrementSharedPreferences(String directoryName) {
+        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+        int value = getPreferences(MODE_PRIVATE).getInt(directoryName, 0);
+        value++;
+        getPreferences(MODE_PRIVATE).edit().putInt(directoryName, value);
+    }
+
+    // Write the HashMap to the file
     public void writeTrackableFile(HashMap<String, ArrayList<String>> tracks) {
         File file = new File(getApplicationContext().getFilesDir(), "trackablesdir");
         if (!file.exists()) {
@@ -178,14 +204,13 @@ public class AddTrack extends AppCompatActivity {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(tracks);
             oos.close();
-            Log.i("beep", "Information added");
         }
         catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Read the file and return the HashMap stored in it.
+    // Read the HashMap file and return the HashMap stored in it.
     public HashMap<String, ArrayList<String>> readTrackableFile() {
         String path = getApplicationContext().getFilesDir() + "/trackablesdir/" + "trackables.txt";
         File file = new File(path);

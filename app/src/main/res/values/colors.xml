@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="babyBlue">#00FFFF</color>
     <color name="blueTeal">#03A0A3</color>
+    <color name="clickedBlueTeal">#005254</color>
+    <color name="classicRed">#ff1c1c</color>
 </resources>
