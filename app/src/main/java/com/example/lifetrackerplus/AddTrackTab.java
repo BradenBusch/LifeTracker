@@ -33,7 +33,7 @@ public class AddTrackTab extends Fragment {
     RadioGroup radioGroup;
     RadioButton radioButton, yesRadioBtn, noRadioBtn;
     EditText addAttributeEditText, nameEditText;
-    Button addAttributeBtn, cancelBtn, confirmBtn;
+    Button addAttributeBtn, confirmBtn;
     View addAttributeBarSep;
     TextView addedAttributesLabel;
     ListView listView;
@@ -45,6 +45,10 @@ public class AddTrackTab extends Fragment {
      * This method is just to make the keyboard not push buttons up when typing
      * Stack Overflow: https://stackoverflow.com/questions/4207880/android-how-do-i-prevent-the-soft-keyboard-from-pushing-my-view-up
      */
+    public AddTrackTab() {
+        // empty constructor
+    }
+
     public void onResume() {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         super.onResume();

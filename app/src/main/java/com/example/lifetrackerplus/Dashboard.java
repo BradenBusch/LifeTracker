@@ -15,6 +15,7 @@ import com.google.android.material.tabs.TabLayout;
  * I think since I don't really know where this app is going, I will start with the add task form,
  * so I can get some data in the internal storage.
  */
+// TODO add another tab for check-ins
 public class Dashboard extends AppCompatActivity {
 
     private Button addEventBtn;

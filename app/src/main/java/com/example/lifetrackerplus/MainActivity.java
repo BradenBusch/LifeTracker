@@ -13,7 +13,7 @@ import android.widget.TextView;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN = 3000; // Time to hang on the splash screen (in milliseconds)
+    private static int SPLASH_SCREEN = 1000; // Time to hang on the splash screen (in milliseconds)
     Animation topLogoAnim;
     TextView logo;
 
