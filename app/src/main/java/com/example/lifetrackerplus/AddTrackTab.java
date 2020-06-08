@@ -50,7 +50,6 @@ public class AddTrackTab extends Fragment {
     }
 
     public void onResume() {
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         super.onResume();
     }
 
@@ -86,7 +85,6 @@ public class AddTrackTab extends Fragment {
         addAttributeBtnClick();
         confirmAndCancelClick(tracks);
         radioBtnShowEditText(v);
-
     }
 
     /*
