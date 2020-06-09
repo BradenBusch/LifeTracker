@@ -32,18 +32,10 @@ import java.util.List;
  * This class handles the form creation, validation, writing, etc. for a track-able item.
  */
 /*
-TODO
- - Make a first pass form for creating a task.
- - Add this data to internal storage. Find a way to write to the file for each trackable without stepping over the other (probs just a file for each trackable)
-     -> Check if the filename exists before creating
- - Write the users information for each trackable to a file in internal memory (one file for each trackable)
- - I'm not sure how entering the trackable information daily will go yet.
-
-TODO
- - Make a directory for each trackable, store the information for their answers in there. (This is bad for aggregating the data)
- - Could store the counter for this in shared preferences
+//this in shared preferences
  */
 
+// TODO DELETE ME?
 public class AddTrack extends AppCompatActivity {
 
     RadioGroup radioGroup;
@@ -181,14 +173,6 @@ public class AddTrack extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(directoryName, 1);
         editor.commit();
-    }
-
-    // TODO move this to where it must be moved
-    public void incrementSharedPreferences(String directoryName) {
-        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-        int value = getPreferences(MODE_PRIVATE).getInt(directoryName, 0);
-        value++;
-        getPreferences(MODE_PRIVATE).edit().putInt(directoryName, value);
     }
 
     // Write the HashMap to the file

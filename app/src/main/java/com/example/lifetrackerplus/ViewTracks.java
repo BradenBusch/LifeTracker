@@ -3,18 +3,17 @@ package com.example.lifetrackerplus;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.FileUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.File;
@@ -30,7 +29,7 @@ import java.util.HashMap;
 
 /**
  * Fragment class that shows the users Track-Ables. Allows inspection, check-ins, and deletion of
- * each Track-able.
+ * each Track-able. This will be the main view for seeing a list of all the users Track-Ables.
  */
 public class ViewTracks extends Fragment {
 
@@ -78,14 +77,30 @@ public class ViewTracks extends Fragment {
         // Implement all the interface methods for clicking on the recycler view
         adapter.setOnItemClickListener(new ViewTrackListAdapter.OnItemClickListener() {
             @Override
+            // User taps on the Card Itself
             public void onItemClick(int position) {
                 list.get(position);
                 Toast.makeText(v.getContext(), "Postition selected: " + position, Toast.LENGTH_SHORT).show();
             }
 
             @Override
+            // User taps delete.
             public void onDeleteClick(int position) {
                 removeItem(list, position);
+            }
+
+            @Override
+            // User taps more info
+            public void onInfoClick(int position) {
+
+            }
+
+            @Override
+            // User taps the add button
+            public void onAddClick(int position) {
+                Intent intent = new Intent(getActivity(), SingleTrackEntry.class);
+                intent.putExtra("Name", list.get(position).getItemName());
+                startActivity(intent);
             }
         });
     }
@@ -96,11 +111,11 @@ public class ViewTracks extends Fragment {
      * the method will also remove the value from the HashMap and internal storage.
      */
     public void removeItem(final ArrayList<ViewTrackListItem> list, final int position) {
-        ViewTrackListItem delName = list.get(position); // The object to be (potentially) deleted
-        Log.i("rem", delName.getItemName());
+        final ViewTrackListItem delName = list.get(position); // The object to be (potentially) deleted
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Confirm Deletion");
         builder.setMessage("Are you sure you want to delete this Track-Able? You'll lose all saved information attached to it.");
+
         // Yes a.k.a. delete the Trackable click
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -109,8 +124,14 @@ public class ViewTracks extends Fragment {
                 // Remove the value from the screen
                 list.remove(position);
                 adapter.notifyDataSetChanged();
-
-                // Remove the value from the files and HashMap.
+                // Get the internal HashMap
+                HashMap<String, ArrayList<String>> storedList = readTrackableFile(getView());
+                // Remove the value from the internal HashMap
+                storedList.remove(delName.getItemName());
+                // Write the HashMap back
+                writeTrackableFile(storedList);
+                // Delete the created directory TODO test this!
+                deleteTrackableDirectory(delName.getItemName());
             }
         });
         // Handle "No" tap (which is nothing)
@@ -122,15 +143,6 @@ public class ViewTracks extends Fragment {
         });
         AlertDialog alert = builder.create();
         alert.show();
-
-        // Get the internal HashMap
-        HashMap<String, ArrayList<String>> storedList = readTrackableFile(getView());
-        // Remove the value from the internal HashMap
-        storedList.remove(delName.getItemName());
-        // Write the HashMap back
-        writeTrackableFile(storedList);
-        // Delete the created directory TODO test this!
-        deleteTrackableDirectory(delName.getItemName());
     }
 
     // Helper method that simply prints the contents of the HashMap

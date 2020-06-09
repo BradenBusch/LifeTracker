@@ -188,14 +188,6 @@ public class AddTrackTab extends Fragment {
         editor.commit();
     }
 
-    // TODO move this to where it must be moved
-//    SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-//    int value = getPreferences(MODE_PRIVATE).getInt(directoryName, 0);
-//    value++;
-//    getPreferences(MODE_PRIVATE).edit().putInt(directoryName, value);
-//}public void incrementSharedPreferences(String directoryName) {
-
-
     // Write the HashMap to the file
     public void writeTrackableFile(HashMap<String, ArrayList<String>> tracks) {
         File file = new File(getContext().getFilesDir(), "trackablesdir");

@@ -24,6 +24,8 @@ public class ViewTrackListAdapter extends RecyclerView.Adapter<ViewTrackListAdap
     public interface OnItemClickListener {
         void onItemClick(int position);
         void onDeleteClick(int position);
+        void onInfoClick(int position);
+        void onAddClick(int position);
     }
 
     // Implement the interface for each button
@@ -60,6 +62,28 @@ public class ViewTrackListAdapter extends RecyclerView.Adapter<ViewTrackListAdap
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
                             onItemClickListener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
+            checkInImgBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onItemClickListener.onAddClick(position);
+                        }
+                    }
+                }
+            });
+            moreInfoImgBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onItemClickListener.onInfoClick(position);
                         }
                     }
                 }
