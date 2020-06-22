@@ -98,6 +98,8 @@ public class ViewTracks extends Fragment {
             @Override
             // User taps the add button
             public void onAddClick(int position) {
+                HashMap<String, ArrayList<String>> map = readTrackableFile(getView());
+                // Pass the name of the clicked TrackAble to the next activity
                 Intent intent = new Intent(getActivity(), SingleTrackEntry.class);
                 intent.putExtra("Name", list.get(position).getItemName());
                 startActivity(intent);
@@ -158,7 +160,6 @@ public class ViewTracks extends Fragment {
      * Returns: A new ArrayList<ViewTrackListItem> with each trackable.
      */
     public ArrayList<ViewTrackListItem> populateCardView(HashMap<String, ArrayList<String>> map) {
-        // TODO add in the symbols here and in ViewTrackListItem
         ArrayList<ViewTrackListItem> list = new ArrayList<>();
         for (HashMap.Entry<String, ArrayList<String>> entry : map.entrySet()) {
             String name = entry.getKey();
@@ -169,6 +170,9 @@ public class ViewTracks extends Fragment {
         return list;
     }
 
+    /*
+     * Delete all files in a directory, and the directory itself.
+     */
     public void deleteTrackableDirectory(String trackName) {
         File directory = getContext().getFilesDir();
         File trackFileDir = new File(directory, trackName);

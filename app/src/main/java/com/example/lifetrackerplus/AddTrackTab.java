@@ -96,7 +96,6 @@ public class AddTrackTab extends Fragment {
         yesRadioBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Beep", "here");
                 addAttributeEditText.setVisibility(View.VISIBLE);
                 addAttributeBtn.setVisibility(View.VISIBLE);
                 addAttributeBarSep.setVisibility(View.VISIBLE);
@@ -107,7 +106,6 @@ public class AddTrackTab extends Fragment {
         noRadioBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Beep", "hre2");
                 addAttributeEditText.setVisibility(View.INVISIBLE);
                 addAttributeBtn.setVisibility(View.INVISIBLE);
                 addAttributeBarSep.setVisibility(View.INVISIBLE);
@@ -140,7 +138,11 @@ public class AddTrackTab extends Fragment {
         });
     }
 
-    // Handle the cancel and confirm buttons being clicked
+    /*
+     * Handle the cancel and confirm buttons being clicked
+     * Checks if the user is already tracking something of the same name or if the name EditText is empty
+     * If both these checks pass, then the Track-Able is added to the users list
+     */
     public void confirmAndCancelClick(final HashMap<String, ArrayList<String>> tracks) {
         // Clicking the confirm button will write the information to internal storage and clear the fields
         confirmBtn.setOnClickListener(new View.OnClickListener() {
@@ -164,10 +166,11 @@ public class AddTrackTab extends Fragment {
                     for (int i = 0; i < adapter.getCount(); i++) {
                         trackableList.add(adapter.getItem(i));
                     }
+                    nameEditText.getText().clear();
                     tracks.put(nameVal, trackableList); // add the <name, trackableList> to HashMap
                     writeTrackableFile(tracks); // update the HashMap in the file
                     createTrackableDirectory(nameVal); // create a directory of name nameVal to store check-ins
-                    // TODO make sure correct HashMap is being added to (reload page or whatever to trigger it)
+                    // TODO remove items from listview
                 }
             }
         });

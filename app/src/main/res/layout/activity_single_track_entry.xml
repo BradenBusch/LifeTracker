@@ -6,20 +6,90 @@
     android:layout_height="match_parent"
     tools:context=".SingleTrackEntry">
 
-    <ListView
-        android:id="@+id/singleentry_listview_attList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@+id/singleentry_btn_confirmBtn"
+    <TextView
+        android:id="@+id/singleentry_textview_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Based"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/singleentry_textview_question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/singleentry_textview_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Did you do, complete, or partake in this track-able?"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/singleentry_radiogroup_yesNo"
+        app:layout_constraintEnd_toStartOf="@+id/singleentry_radiogroup_yesNo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/singleentry_textview_header" />
+
+    <RadioGroup
+        android:id="@+id/singleentry_radiogroup_yesNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/singleentry_listview_attList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/singleentry_textview_question">
+
+        <RadioButton
+            android:id="@+id/singleentry_radiobtn_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/blueTeal"
+            android:checked="true"
+            android:fontFamily="sans-serif-black"
+            android:text="Yes"
+            android:textColor="@color/blueTeal"
+            android:textSize="20sp"
+            android:layout_marginRight="40dp"/>
+
+        <RadioButton
+            android:id="@+id/singleentry_radiobtn_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/blueTeal"
+            android:fontFamily="sans-serif-black"
+            android:text="No"
+            android:textColor="@color/blueTeal"
+            android:textSize="20sp"
+            android:layout_marginLeft="40dp"/>
+    </RadioGroup>
+
+    <ListView
+        android:id="@+id/singleentry_listview_attList"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/singleentry_btn_confirmBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/singleentry_radiogroup_yesNo">
+
+    </ListView>
 
     <Button
         android:id="@+id/singleentry_btn_confirmBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="25dp"
         android:background="@drawable/solid_green_button"
@@ -29,5 +99,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/singleentry_listview_attList" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
