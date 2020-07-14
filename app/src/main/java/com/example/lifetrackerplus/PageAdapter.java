@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+/**
+ * Handle which Tab to open / create when it is slid onto
+ */
 public class PageAdapter extends FragmentPagerAdapter {
 
     private int numTabs;
@@ -19,7 +22,7 @@ public class PageAdapter extends FragmentPagerAdapter {
     // TODO fix this code once the classes (fragments) are implemented. Using ViewTracks is just filler
     public Fragment getItem(int position) {
         switch (position) {
-            case 0: return new ViewTracks();
+            case 0: return new DashboardTab();
             case 1: return new ViewTracks();
             case 2: return new AddTrackTab();
             default: return new ViewTracks();

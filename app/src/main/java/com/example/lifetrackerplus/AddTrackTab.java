@@ -28,6 +28,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Fragment class for adding a new track to the the trackables list
+ */
 public class AddTrackTab extends Fragment {
 
     RadioGroup radioGroup;
@@ -114,7 +117,9 @@ public class AddTrackTab extends Fragment {
         });
     }
 
-    // Handle the 'add' button being clicked. This will add the users value to their attribute list.
+    /*
+     * Handle the 'add' button being clicked. This will add the users value to their attribute list.
+     */
     public void addAttributeBtnClick() {
         addAttributeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,7 +196,9 @@ public class AddTrackTab extends Fragment {
         editor.commit();
     }
 
-    // Write the HashMap to the file
+    /*
+     * Write the HashMap to the file
+     */
     public void writeTrackableFile(HashMap<String, ArrayList<String>> tracks) {
         File file = new File(getContext().getFilesDir(), "trackablesdir");
         if (!file.exists()) {
@@ -209,7 +216,11 @@ public class AddTrackTab extends Fragment {
         }
     }
 
-    // Read the HashMap file and return the HashMap stored in it.
+    /*
+     * Read the HashMap file and return the HashMap stored in it.
+     *
+     * Returns: The internal HashMap
+     */
     public HashMap<String, ArrayList<String>> readTrackableFile() {
         String path = getContext().getFilesDir() + "/trackablesdir/" + "trackables.txt";
         File file = new File(path);

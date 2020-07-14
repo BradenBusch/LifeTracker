@@ -8,7 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-/*
+/**
  * This class handles the splash screen and animation of the splash screen
  */
 public class MainActivity extends AppCompatActivity {

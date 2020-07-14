@@ -46,7 +46,7 @@ import java.util.Timer;
  *  [x] Make the Title of the SingleEntry screen be the name of the track
  *  [x] Make the ListView get cleared after clicking confirm, and take the user back to the other screen
  *  [] Add Radio Buttons to the XML view for Yes or No
- *
+ *  [] Make the Dashboard screen
  */
 
 /**
@@ -194,6 +194,8 @@ public class SingleTrackEntry extends AppCompatActivity {
 
     /*
      * Called when confirm is clicked. This will put the answers to each attribute in an ArrayList
+
+     * Returns: The answers to each attribute as an ArrayList
      */
     public ArrayList<String> getUsersEntries() {
         ArrayList<String> ret = new ArrayList<>();
@@ -206,7 +208,7 @@ public class SingleTrackEntry extends AppCompatActivity {
     }
 
     /*
-     * Clear all the users answers in the ListView
+     * Clear all the users answers in the ListView (set each ones text to empty)
      */
     public void clearAttributeAnswers() {
         for (int i = 0; i < listView.getCount(); i++) {

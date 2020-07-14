@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * Class for handling the effects of clicking on a list element of the list in AddTracks
+ */
 public class AddTrackListAdapter extends BaseAdapter {
 
     Context context;
