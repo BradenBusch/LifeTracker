@@ -1,7 +1,9 @@
 package com.example.lifetrackerplus;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +34,7 @@ import java.util.Timer;
 
 /*
  * TODO
- *  [] Implement a popup (allow disabling) telling the user that this is separate from "Check-In", and that this is
+ *  [x] Implement a popup (allow disabling) telling the user that this is separate from "Check-In", and that this is
  *     for one single Track-Able they just want to make an entry for. Use CheckIn to be prompted for all TrackAbles.
  *  [] Finish the XML for the SingleEntry screen to make it look cleaner
  *  [x] Determine how writing to a file for a single entry will be done (as in the pattern)
@@ -45,8 +48,10 @@ import java.util.Timer;
  *  [x] Debug: On AddTrack, not scrolling anymore.
  *  [x] Make the Title of the SingleEntry screen be the name of the track
  *  [x] Make the ListView get cleared after clicking confirm, and take the user back to the other screen
- *  [] Add Radio Buttons to the XML view for Yes or No
+ *  [x] Add Radio Buttons to the XML view for Yes or No
  *  [] Make the Dashboard screen
+ *  [x] Make the attributes be hidden when "No" is selected
+ *  [] Write Yes or No to the file that is created
  */
 
 /**
@@ -59,6 +64,8 @@ public class SingleTrackEntry extends AppCompatActivity {
     TrackEntryListAdapter adapter;
     Button confirmBtn;
     TextView header;
+    RadioButton yesRadioBtn, noRadioBtn;
+    ListView attributeList;
     public static final String SHARED_PREFS = "sharedPrefs";
 
     @Override
@@ -71,12 +78,15 @@ public class SingleTrackEntry extends AppCompatActivity {
         listView = findViewById(R.id.singleentry_listview_attList);
         confirmBtn = findViewById(R.id.singleentry_btn_confirmBtn);
         header = findViewById(R.id.singleentry_textview_header);
+        yesRadioBtn = findViewById(R.id.singleentry_radiobtn_yes);
+        noRadioBtn = findViewById(R.id.singleentry_radiobtn_no);
+        listView = findViewById(R.id.singleentry_listview_attList);
 
         // Get the name of the Track-Able that is getting an entry.
         Intent intent = getIntent();
         String entryTrackName = intent.getStringExtra("Name");
 
-        // Set the Header for the screen
+        // Set the Header for the screen (as the name of the selected trackable)
         header.setText(entryTrackName + " Check-In");
 
         // Load the HashMap
@@ -88,10 +98,16 @@ public class SingleTrackEntry extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         setOnClicks(entryTrackName, attributes);
+
+        // Check if the dialog should be shown
+        SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+        boolean showDialog = preferences.getBoolean("showDialog", true);
+        if (showDialog) showDialog();
     }
 
     /*
-     * Set any necessary click buttons / items
+     * Set any necessary click buttons / items. This will also handle the Radio Buttons, which will
+     * show or not show the attributes
      */
     public void setOnClicks(final String entryTrackName, final ArrayList<String> atts) {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +123,18 @@ public class SingleTrackEntry extends AppCompatActivity {
                         finish();
                     }
                 }, 1000);
+            }
+        });
+        yesRadioBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listView.setVisibility(View.VISIBLE);
+            }
+        });
+        noRadioBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listView.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -216,5 +244,35 @@ public class SingleTrackEntry extends AppCompatActivity {
             EditText et = v.findViewById(R.id.singleentry_edittext_userEntry);
             et.setText("");
         }
+    }
+
+    /*
+     * Build the Dialog box letting the user know that this part of the app is only for a single entry
+     */
+    public void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SingleTrackEntry.this);
+        builder
+                .setCancelable(false)
+                .setMessage("This is just for a single entry. If you would like to complete an entry for all track-ables, head to the Dashboard.")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setNeutralButton("Don't Show Again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean("showDialog", false);
+                        editor.apply();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
     }
 }

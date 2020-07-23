@@ -90,9 +90,10 @@ public class ViewTracks extends Fragment {
             }
 
             @Override
-            // User taps more info
+            // User taps more info button
             public void onInfoClick(int position) {
-
+                // TODO this method should handle opening a new view that shows users each entry they
+                //  have done. This one should be very fleshed out and have a very clean UI (thinking dropdown based on dates)
             }
 
             @Override
