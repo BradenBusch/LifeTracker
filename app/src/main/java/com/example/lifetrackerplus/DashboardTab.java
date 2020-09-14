@@ -1,6 +1,7 @@
 package com.example.lifetrackerplus;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Class that handles the "TabHandler" Fragment. This screen will contain some information like
@@ -22,7 +25,7 @@ import java.util.HashMap;
 public class DashboardTab extends Fragment {
 
     private HashMap<String, ArrayList<String>> hashMap;
-    private int numTrackables;
+    private int numTrackables, numEntries;
 
     public DashboardTab() {
         // Required empty constructor
@@ -44,8 +47,21 @@ public class DashboardTab extends Fragment {
         // Get size of the HashMap
         numTrackables = hashMap.size();
         //TODO Get number of journal entries
+        numEntries = getNumJournalEntries(hashMap);
+        Log.d("BEEP", numTrackables + " " + numEntries);
 
 
+    }
+
+    /*
+     * Return the total number of journal entries in the system
+     */
+    public int getNumJournalEntries(HashMap<String, ArrayList<String>> map) {
+        int count = 0;
+        for (Map.Entry<String, ArrayList<String>> set : map.entrySet()) {
+            count += set.getValue().size();
+        }
+        return count;
     }
 
     /*

@@ -19,7 +19,6 @@ public class PageAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    // TODO fix this code once the classes (fragments) are implemented. Using ViewTracks is just filler
     public Fragment getItem(int position) {
         switch (position) {
             case 0: return new DashboardTab();

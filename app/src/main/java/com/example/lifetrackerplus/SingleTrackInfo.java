@@ -13,10 +13,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Class that will show the user information related to just ONE trackable. Accessible from
@@ -51,7 +49,6 @@ public class SingleTrackInfo extends AppCompatActivity {
         readTrackableEntries(trackableName); // get the information for each ExpandableView
         listAdapter = new SingleInfoExpandableListAdapter(this, trackableEntryNames, trackableEntryData);
         listView.setAdapter(listAdapter);
-
     }
 
     /*
@@ -63,9 +60,9 @@ public class SingleTrackInfo extends AppCompatActivity {
         trackableEntryData = new HashMap<>();
         File dir = new File(getWindow().getContext().getFilesDir(), dirName);
         if (dir.isDirectory()) {
-            File[] trackEntries = dir.listFiles();
+            File[] trackEntries = dir.listFiles(); // Get each file in this trackables directory (i.e. get each entry for selected trackable)
             int fileNum = 1;
-            for (File trackEntry : trackEntries) {
+            for (File trackEntry : trackEntries) { // Loop through each file
                 try {
                     String expandableEntryName = trackEntry.getName();
                     ArrayList<String> ivdlTrackData = new ArrayList<>();
@@ -91,7 +88,7 @@ public class SingleTrackInfo extends AppCompatActivity {
                         line = br.readLine();
                     }
                     fileNum++;
-                    trackableEntryNames.add(expandableEntryName); // trackName2.txt
+                    trackableEntryNames.add(expandableEntryName);
                     trackableEntryData.put(expandableEntryName, ivdlTrackData);
                 }
                 catch (IOException e) {

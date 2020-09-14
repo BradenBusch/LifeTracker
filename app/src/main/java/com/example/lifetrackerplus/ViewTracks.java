@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,9 @@ public class ViewTracks extends Fragment {
         // Build the recycler view
         buildRecyclerView(v, viewTrackListItemArrayList);
 
+        // Check if the Trackable List is empty
+        trackExistToast(userTracks, v);
+
     }
 
     /*
@@ -82,7 +86,6 @@ public class ViewTracks extends Fragment {
             // User taps on the Card Itself
             public void onItemClick(int position) {
                 list.get(position);
-                Toast.makeText(v.getContext(), "Postition selected: " + position, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -94,9 +97,6 @@ public class ViewTracks extends Fragment {
             @Override
             // User taps more info button
             public void onInfoClick(int position) {
-                // TODO this method should handle opening a new view that shows users each entry they
-                //  have done. This one should be very fleshed out and have a very clean UI (thinking dropdown based on dates)
-                //  SHOULD HAVE SCREEN WHERE ENTRIES CAN BE SORTED. THIS SCREEN SHOULD BE A CALENDAR
                 // This click will only bring up the info for one particular trackable, Dashboard
                 // will contain the calendar with each trackable on it
                 Intent intent = new Intent(getActivity(), SingleTrackInfo.class);
@@ -190,6 +190,18 @@ public class ViewTracks extends Fragment {
             for (int i = 0; i < children.length; i++) {
                 new File(trackFileDir, children[i]).delete();
             }
+        }
+    }
+
+    /*
+     * Check if the HashMap is empty, meaning the user hasn't made any trackables yet. This will
+     * produce a toast message
+     */
+    public void trackExistToast(HashMap<String, ArrayList<String>> map, View view) {
+        if (map.size() == 0) {
+            Toast toast = Toast.makeText(view.getContext(), "You haven't added any trackables yet, they will show up here once you have.", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
         }
     }
 
