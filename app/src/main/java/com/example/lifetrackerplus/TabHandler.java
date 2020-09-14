@@ -12,12 +12,12 @@ import android.widget.Button;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
-/*
- * I think since I don't really know where this app is going, I will start with the add task form,
- * so I can get some data in the internal storage.
+/**
+ * This class handles the back-end work needed to change the page for the Tab Layout.
  */
+
 // TODO add another tab for check-ins
-public class Dashboard extends AppCompatActivity {
+public class TabHandler extends AppCompatActivity {
 
     private Button addEventBtn;
     private TabLayout tabLayout;

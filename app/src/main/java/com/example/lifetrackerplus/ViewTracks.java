@@ -66,7 +66,9 @@ public class ViewTracks extends Fragment {
 
     }
 
-    // Build Recycler View, Adapter, and Layout Manager.
+    /*
+     * Build Recycler View, Adapter, and Layout Manager.
+     */
     public void buildRecyclerView(final View v, final ArrayList<ViewTrackListItem> list) {
         recyclerView = v.findViewById(R.id.viewtracks_recview_recview);
         layoutManager = new LinearLayoutManager(v.getContext());
@@ -94,6 +96,12 @@ public class ViewTracks extends Fragment {
             public void onInfoClick(int position) {
                 // TODO this method should handle opening a new view that shows users each entry they
                 //  have done. This one should be very fleshed out and have a very clean UI (thinking dropdown based on dates)
+                //  SHOULD HAVE SCREEN WHERE ENTRIES CAN BE SORTED. THIS SCREEN SHOULD BE A CALENDAR
+                // This click will only bring up the info for one particular trackable, Dashboard
+                // will contain the calendar with each trackable on it
+                Intent intent = new Intent(getActivity(), SingleTrackInfo.class);
+                intent.putExtra("Name2", list.get(position).getItemName());
+                startActivity(intent);
             }
 
             @Override

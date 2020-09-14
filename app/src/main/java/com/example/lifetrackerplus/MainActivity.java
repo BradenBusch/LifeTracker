@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                Intent intent = new Intent(MainActivity.this, TabHandler.class);
                 startActivity(intent);
                 finish(); // removes this current activity from the activity list
             }

@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Fragment class for adding a new track to the the trackables list
+ * Fragment class for adding a new track to the the track-ables list
  */
 public class AddTrackTab extends Fragment {
 

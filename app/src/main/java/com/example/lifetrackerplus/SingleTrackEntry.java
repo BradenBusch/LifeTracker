@@ -49,9 +49,9 @@ import java.util.Timer;
  *  [x] Make the Title of the SingleEntry screen be the name of the track
  *  [x] Make the ListView get cleared after clicking confirm, and take the user back to the other screen
  *  [x] Add Radio Buttons to the XML view for Yes or No
- *  [] Make the Dashboard screen
+ *  [] Make the TabHandler screen
  *  [x] Make the attributes be hidden when "No" is selected
- *  [] Write Yes or No to the file that is created
+ *  [x] Write Yes or No to the file that is created
  */
 
 /**
@@ -66,6 +66,8 @@ public class SingleTrackEntry extends AppCompatActivity {
     TextView header;
     RadioButton yesRadioBtn, noRadioBtn;
     ListView attributeList;
+    boolean trackableDone = true; //this will be used for counting purposes for analytics
+
     public static final String SHARED_PREFS = "sharedPrefs";
 
     @Override
@@ -129,12 +131,14 @@ public class SingleTrackEntry extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 listView.setVisibility(View.VISIBLE);
+                trackableDone = true;
             }
         });
         noRadioBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listView.setVisibility(View.INVISIBLE);
+                trackableDone = false;
             }
         });
     }
@@ -156,9 +160,16 @@ public class SingleTrackEntry extends AppCompatActivity {
             BufferedWriter bw = new BufferedWriter(new FileWriter(entry));
             bw.write(currTime.toString());
             bw.newLine();
+
+            if(trackableDone) {
+                bw.write("Yes");
+            }
+            else {
+                bw.write("No");
+            }
+            bw.newLine();
             for (int i = 0; i < answers.size(); i++) {
-                bw.write(attNames.get(i) + ":"); // TODO when using this later on, can check for arraysize = 1, use split, etc to see if an attribute was entered
-                bw.write(answers.get(i));
+                bw.write(attNames.get(i) + ": " + answers.get(i)); // TODO when using this later on, can check for arraysize = 1, use split, etc to see if an attribute was entered
                 bw.newLine();
             }
             incrementSharedPreferences(dirName);
@@ -253,7 +264,7 @@ public class SingleTrackEntry extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(SingleTrackEntry.this);
         builder
                 .setCancelable(false)
-                .setMessage("This is just for a single entry. If you would like to complete an entry for all track-ables, head to the Dashboard.")
+                .setMessage("This is just for a single entry. If you would like to complete an entry for all track-ables, head to the TabHandler.")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

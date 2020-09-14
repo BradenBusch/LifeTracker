@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Class that handles the "Dashboard" Fragment. This screen will contain some information like
+ * Class that handles the "TabHandler" Fragment. This screen will contain some information like
  * total number of entries
  */
 public class DashboardTab extends Fragment {
