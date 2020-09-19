@@ -9,9 +9,9 @@ and not just one particular task.
 
   <p align="center">
     <h2> Add a New Trackable</h2>
-    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-131650__01.jpg" width="25%" height="25%">
+    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-131650__01.jpg" width="25%" height="25%" />
   </p>
   <p align="center">
     <h2> View All Trackables </h2>
-    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132607__01.jpg" width="25%" height="25%">
+    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132607__01.jpg" width="25%" height="25%" />
   </p>
