@@ -10,30 +10,30 @@ and not just one particular task.
 <div>
   <h2 align="center">Create a new Trackable</h2>
   <p align="center">
-    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-131650__01.jpg" width="220px" height="400px" />
+    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-131650__01.jpg" width="25%" height="25%" />
   </p>
 </div>
 <div>
   <h2 align="center">View all Trackables</h2>
   <p align="center">
-    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132607__01.jpg" width="220px" height="400px" />
+    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132607__01.jpg" width="25%" height="25%" />
   </p>
 </div>
 <div>
   <h2 align="center">Make an Entry (Check-In) For Your Trackable</h2>
   <p align="center">
-    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132646__01.jpg" width="220px" height="400px" />
+    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132646__01.jpg" width="25%" height="25%"  />
   </p>
 </div>
 <div>
   <h2 align="center">View All Trackable Entries</h2>
   <p align="center">
-    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132832__01.jpg" width="220px" height="400px" />
+    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132832__01.jpg" width="25%" height="25%"  />
   </p>
 </div>
 <div>
   <h2 align="center">View App Analytics</h2>
   <p align="center">
-    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132703__01.jpg" width="220px" height="400px" />
+    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132703__01.jpg" width="25%" height="25%"  />
   </p>
 </div>
