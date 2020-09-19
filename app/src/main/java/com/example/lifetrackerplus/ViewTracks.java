@@ -38,18 +38,20 @@ public class ViewTracks extends Fragment {
     private RecyclerView recyclerView;
     private ViewTrackListAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private HashMap<String, ArrayList<String>> map;
 
     public ViewTracks() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        // Check if the Trackable List is empty
         return inflater.inflate(R.layout.fragment_view_tracks, container, false);
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -58,16 +60,14 @@ public class ViewTracks extends Fragment {
 
         // Get the internally stored HashMap which contains all the Trackable names & attributes
         HashMap<String, ArrayList<String>> userTracks = readTrackableFile(v);
-
+        map = userTracks;
         // Populate the viewTrackListItemArrayList with the ViewTrackListItems
         ArrayList<ViewTrackListItem> viewTrackListItemArrayList = populateCardView(userTracks);
 
         // Build the recycler view
         buildRecyclerView(v, viewTrackListItemArrayList);
-
-        // Check if the Trackable List is empty
-        trackExistToast(userTracks, v);
-
+        //trackExistToast(userTracks, v);
+        //onHiddenChanged(mVisible);
     }
 
     /*
@@ -194,12 +194,13 @@ public class ViewTracks extends Fragment {
     }
 
     /*
-     * Check if the HashMap is empty, meaning the user hasn't made any trackables yet. This will
-     * produce a toast message
+     * TODO make this work
+     *  Check if the HashMap is empty, meaning the user hasn't made any trackables yet. This will
+     *  produce a toast message
      */
-    public void trackExistToast(HashMap<String, ArrayList<String>> map, View view) {
+    public void trackExistToast(HashMap<String, ArrayList<String>> map, View v) {
         if (map.size() == 0) {
-            Toast toast = Toast.makeText(view.getContext(), "You haven't added any trackables yet, they will show up here once you have.", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(v.getContext(), "You haven't added any trackables yet, they will show up here once you have.", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
             toast.show();
         }

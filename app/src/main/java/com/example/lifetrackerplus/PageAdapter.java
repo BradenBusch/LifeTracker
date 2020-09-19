@@ -24,7 +24,7 @@ public class PageAdapter extends FragmentPagerAdapter {
             case 0: return new DashboardTab();
             case 1: return new ViewTracks();
             case 2: return new AddTrackTab();
-            default: return new ViewTracks();
+            default: return null;
         }
     }
 
