@@ -7,4 +7,4 @@ today, or you can add entries manually. All entries are saved and able to be vie
 All in all, LifeTrackerPlus acts like a prompted journal, allowing you to track your life. It is designed to be fluid with everything that can be tracked, 
 and not just one particular task.
 
-![img1](https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-131650__01.jpg?raw=true)
+![img1](https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-131650__01.jpg =250x250)
