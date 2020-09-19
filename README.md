@@ -7,11 +7,15 @@ today, or you can add entries manually. All entries are saved and able to be vie
 All in all, LifeTrackerPlus acts like a prompted journal, allowing you to track your life. It is designed to be fluid with everything that can be tracked, 
 and not just one particular task.
 
+<div>
+  <h2 align="center">Create a new Trackable</h2>
   <p align="center">
-    <h2> Add a New Trackable</h2>
-    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-131650__01.jpg" width="25%" height="25%" />
+    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-131650__01.jpg" width="220px" height="400px" />
   </p>
+</div>
+<div>
+  <h2 align=center">View all Trackables</h2>
   <p align="center">
-    <h2> View All Trackables </h2>
-    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132607__01.jpg" width="25%" height="25%" />
+    <img src="https://github.com/BradenBusch/LifeTracker/blob/master/app/src/main/res/drawable-v24/Screenshot_20200917-132607__01.jpg" width="220px" height="400px" />
   </p>
+</div>
