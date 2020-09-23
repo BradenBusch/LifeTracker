@@ -1,6 +1,4 @@
 # LifeTracker
-Android App developed with Java that allows users to track various life functions.
-
 LifeTrackerPlus is an Android app implemented in Java. It allows a user to track certain functions of their life like how much they drink, work out, 
 go shopping, watch TV, etc. For example, lets think of a trackable task like video games. I create "Video Games" as a trackable, and also can add attributes 
 to this trackable like what game played, amount of time played, etc. You can customize if you want the app to prompt you, asking if you've played video games 
